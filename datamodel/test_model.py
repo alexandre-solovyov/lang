@@ -1,0 +1,30 @@
+
+# -*- coding: utf-8 -*-
+
+import unittest
+import os
+from model import Model
+
+def load(filename):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    print dir_path
+    path = os.path.join(dir_path, '..', 'testdata', filename)
+    model = Model()
+    model.load(path)
+    return model
+    
+class TestModel(unittest.TestCase):
+    def test_load(self):
+        model = load('test1.lang')
+        self.assertEqual(len(model.lines), 3)
+        self.assertEqual(model.lines[0].text, u'un modèle = модель')
+        self.assertEqual(model.lines[0].context,
+                         {'category':'basic', 'date':'June, 29'})
+        self.assertEqual(model.lines[1].text, u'un problème = проблема')
+        self.assertEqual(model.lines[1].context,
+                         {'category':'basic', 'date':'June, 29'})
+        self.assertEqual(model.lines[2].text, u'parler = говорить')
+        self.assertEqual(model.lines[2].context,
+                         {'category':'verbs', 'date':'June, 29'})
+if __name__=='__main__':
+    unittest.main()
