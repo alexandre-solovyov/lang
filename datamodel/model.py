@@ -23,6 +23,27 @@ class Model(object):
             line = self.simplify(line)
             if len(line.text) > 0:
                 self.lines.append(line)
+    
+    def diff_context(self, old_context, new_context):
+        diff = {}
+        for key, value in new_context.iteritems():
+            if not key in old_context or old_context[key] != value:
+               diff[key] = value
+        return diff
+        
+    def save(self, filename):
+        self.filename = filename
+        mfile = codecs.open(filename, 'wb', 'utf-8')
+        old_context = {}
+        for line in self.lines:
+            diff = self.diff_context(old_context, line.context)
+            if len(diff) > 0:
+                mfile.write('\n')
+                for key, value in diff.iteritems():
+                    mfile.write('//! %s: %s\n' % (key, value)) 
+            old_context = line.context
+            mfile.write(line.text+'\n')
+        mfile.close()
 
     def simplify(self, line):
         line = ' '.join(line.split())

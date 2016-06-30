@@ -3,11 +3,12 @@
 
 import unittest
 import os
+import codecs
 from model import Model
 
 def load(filename):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    print dir_path
+    #print dir_path
     path = os.path.join(dir_path, '..', 'testdata', filename)
     model = Model()
     model.load(path)
@@ -26,5 +27,24 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.lines[2].text, u'parler = говорить')
         self.assertEqual(model.lines[2].context,
                          {'category':'verbs', 'date':'June, 29'})
+                         
+    def test_save(self):
+        model = load('test1.lang')
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        path = os.path.join(dir_path, '..', 'testresults', 'test1_copy.lang')
+        model.save(path)
+        mfile = codecs.open(path, 'rb', 'utf-8')
+        file_contents = mfile.read()
+        self.assertEqual(file_contents, u"""
+//! date: June, 29
+//! category: basic
+un modèle = модель
+un problème = проблема
+
+//! category: verbs
+parler = говорить
+""")
+
+                         
 if __name__=='__main__':
     unittest.main()
