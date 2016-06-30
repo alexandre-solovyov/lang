@@ -38,8 +38,7 @@ class Model(object):
             length = 2
         else:
             return Line(line, self.context)
-            
-        # TODO: interpret comment
+
         comment = line[index+length:]
         if len(comment)>0 and comment[0]=='!':
             # this is the interpreted comment
