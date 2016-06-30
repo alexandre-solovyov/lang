@@ -73,4 +73,19 @@ class Model(object):
         text = line[:index]
         line = Line(text, self.context)
         return line
-        
+    
+    def value(self, line, key):
+        if key in line.context:
+            return line.context[key]
+        else:
+            return None
+            
+    def values(self, key):
+        values_set = set()
+        for line in self.lines:
+            line_value = self.value(line, key)
+            if line_value is not None:
+                values_set.add(line_value)
+        values_lst = list(values_set)
+        values_lst.sort()
+        return values_lst

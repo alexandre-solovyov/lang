@@ -45,6 +45,12 @@ un problème = проблема
 parler = говорить
 """)
 
+    def test_categories(self):
+        model = load('test1.lang')
+        self.assertEqual(model.values('category'), ['basic', 'verbs'])
+        self.assertEqual(model.value(model.lines[1], 'category'), 'basic')
+        self.assertEqual(model.value(model.lines[1], 'other'), None)
+
                          
 if __name__=='__main__':
     unittest.main()
