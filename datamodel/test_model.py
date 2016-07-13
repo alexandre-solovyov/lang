@@ -27,7 +27,11 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.lines[2].text, u'parler = говорить')
         self.assertEqual(model.lines[2].context,
                          {'category':'verbs', 'date':'June, 29'})
-                         
+    
+    def test_load_unexisting_file(self):
+        model = Model()
+        self.assertEqual(model.load('some_not_existing'), False)
+
     def test_save(self):
         model = load('test1.lang')
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -51,6 +55,28 @@ parler = говорить
         self.assertEqual(model.value(model.lines[1], 'category'), 'basic')
         self.assertEqual(model.value(model.lines[1], 'other'), None)
 
-                         
+    def test_add(self):
+        model = Model()
+        self.assertEqual(len(model.lines), 0)
+        self.assertEqual(model.add(''), False)
+        self.assertEqual(len(model.lines), 0)
+        self.assertEqual(model.add('   '), False)
+        self.assertEqual(len(model.lines), 0)
+        self.assertEqual(model.add(' a =  b  '), True)
+        self.assertEqual(len(model.lines), 1)
+        self.assertEqual(model.lines[0].text, 'a = b')
+        self.assertEqual(model.lines[0].context, {})
+        self.assertEqual(model.add('   a   = b'), False)  # the second time 
+        self.assertEqual(len(model.lines), 1)
+        self.assertEqual(model.add(' c d  ', {'date':'-'}), True)
+        self.assertEqual(len(model.lines), 2)
+        self.assertEqual(model.lines[1].text, 'c d')
+        self.assertEqual(model.lines[1].context, {'date':'-'})
+        self.assertEqual(model.add(' e  ', {'test':'0'}), True)
+        self.assertEqual(len(model.lines), 3)
+        self.assertEqual(model.lines[2].text, 'e')
+        self.assertEqual(model.lines[2].context, {'date':'-', 'test':'0'})
+
+         
 if __name__=='__main__':
     unittest.main()

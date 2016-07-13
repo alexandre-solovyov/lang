@@ -1,6 +1,7 @@
 
 import codecs
 import copy
+import os
 
 ENCODING = 'UTF-8'
 
@@ -8,13 +9,15 @@ class Line(object):
     def __init__(self, text, context):
         self.text = text
         self.context = copy.deepcopy(context)
-        
+
 class Model(object):
     def __init__(self):
         self.lines = []
         self.context = {}
         
     def load(self, filename):
+        if not os.path.isfile(filename):
+            return False
         self.filename = filename
         mfile = codecs.open(filename, 'rb', 'utf-8')
         lines = mfile.readlines()
@@ -23,7 +26,8 @@ class Model(object):
             line = self.simplify(line)
             if len(line.text) > 0:
                 self.lines.append(line)
-    
+        return True
+        
     def diff_context(self, old_context, new_context):
         diff = {}
         for key, value in new_context.iteritems():
@@ -45,8 +49,11 @@ class Model(object):
             mfile.write(line.text+'\n')
         mfile.close()
 
+    def simplify_spaces(self, line):
+        return ' '.join(line.split())
+
     def simplify(self, line):
-        line = ' '.join(line.split())
+        line = self.simplify_spaces(line)
         line = self.comment(line)
         return line
     
@@ -89,3 +96,31 @@ class Model(object):
         values_lst = list(values_set)
         values_lst.sort()
         return values_lst
+
+    def update_exercises(self):
+        # TODO
+        pass
+
+    def choose_exercise(self):
+        # TODO
+        pass
+
+    def add(self, text, context=None):
+        text = self.simplify_spaces(text)
+        if len(text)==0:
+            return False
+
+        for line in self.lines:
+            if line.text==text:
+                 return False
+        if len(self.lines)>0:
+           cur_context = copy.deepcopy(self.lines[-1].context)
+        else:
+           cur_context = {}
+        if context is not None:
+             for key, value in context.iteritems():
+                  cur_context[key] = value
+        new_line = Line(text, cur_context)
+        self.lines.append(new_line)
+        return True
+
