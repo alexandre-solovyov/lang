@@ -31,6 +31,6 @@ class EG_One(EG_Base):
                 question = question + ''.join(parts[i+1:])
                 question = question.replace(self.mark(), '')
                 answer = parts[i][1:]
-                ex.append(Exercise(question, answer, lang1, lang1, category, self.tag))
+                ex.append(Exercise('', question, answer, lang1, lang1, category, self.tag))
                 
         return ex

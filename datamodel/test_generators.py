@@ -65,5 +65,15 @@ class TestGenerators(unittest.TestCase):
                          [u"s'il vous plaît (пожалуйста) [fr, ru] #просьба",
                           u"пожалуйста (s'il vous plaît) [ru, fr] #просьба"])
 
+    def test_syn(self):
+        self.assertEqual(self.gen(u"accessible ~ disponible"),
+                         [u"~ accessible (disponible) [fr, fr]",
+                          u"~ disponible (accessible) [fr, fr]"])
+
+    def test_ant(self):
+        self.assertEqual(self.gen(u"clair != foncé"),
+                         [u"!= clair (foncé) [fr, fr]",
+                          u"!= foncé (clair) [fr, fr]"])
+
 if __name__=='__main__':
     unittest.main()
