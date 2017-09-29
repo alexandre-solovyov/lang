@@ -3,6 +3,7 @@ import unittest
 
 from test_model import TestModel
 from test_generators import TestGenerators
+from test_text_utils import TestTextUtils
 from unicode_utils import init
 
 try:
