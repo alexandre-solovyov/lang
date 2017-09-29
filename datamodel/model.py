@@ -2,6 +2,7 @@
 import codecs
 import copy
 import os
+from tools import simplify_spaces
 
 ENCODING = 'UTF-8'
 
@@ -49,11 +50,8 @@ class Model(object):
             mfile.write(line.text+'\n')
         mfile.close()
 
-    def simplify_spaces(self, line):
-        return ' '.join(line.split())
-
     def simplify(self, line):
-        line = self.simplify_spaces(line)
+        line = simplify_spaces(line)
         line = self.comment(line)
         return line
     
@@ -106,7 +104,7 @@ class Model(object):
         pass
 
     def add(self, text, context=None):
-        text = self.simplify_spaces(text)
+        text = simplify_spaces(text)
         if len(text)==0:
             return False
 

@@ -77,6 +77,10 @@ parler = говорить
         self.assertEqual(model.lines[2].text, 'e')
         self.assertEqual(model.lines[2].context, {'date':'-', 'test':'0'})
 
+    def test_exercises(self):
+        model = load('test2.lang')
+        self.assertEqual(model.values('category'), [])
+
          
 if __name__=='__main__':
     unittest.main()
