@@ -11,7 +11,7 @@ def concat(text1, text2):
 
 class EG_One(object):
     def __init__(self):
-        self.pattern = re.compile('(\*?\w+|\*)')
+        self.pattern = re.compile('(\*?\w+|\*)', re.UNICODE)
       
     def get_words(self, line):
         line = simplify_spaces(line)

@@ -1,4 +1,4 @@
-
+﻿
 # -*- coding: utf-8 -*-
 
 import unittest
@@ -13,7 +13,7 @@ class TestGenerators(unittest.TestCase):
         
     def gen(self, line):
         ex = self.g.generate(line)
-        exs = [repr(e) for e in ex]
+        exs = [unicode(e) for e in ex]
         return exs
         
     def test_eg_one(self):
@@ -38,6 +38,10 @@ class TestGenerators(unittest.TestCase):
         self.assertEqual(self.gen('*a, *b!'),
                          ['..., b! (a)',
                           'a, ...! (b)'])
+        self.assertEqual(self.gen(u"c'est *un éternel mécontent"),
+                         [u"c'est ... éternel mécontent (un)"])
+        self.assertEqual(self.gen(u"c'est un *éternel mécontent"),
+                         [u"c'est un ... mécontent (éternel)"])
 
 if __name__=='__main__':
     unittest.main()

@@ -6,3 +6,6 @@ class Exercise(object):
 
     def __repr__(self):
         return self.question + ' (' + self.answer + ')'
+
+    def __unicode__(self):
+        return self.__repr__()
