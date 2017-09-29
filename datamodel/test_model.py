@@ -5,6 +5,7 @@ import unittest
 import os
 import codecs
 from model import Model
+from statistics import Stat
 
 def load(filename):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -81,7 +82,20 @@ parler = говорить
 
     def test_exercises(self):
         model = load('test2.lang')
-        self.assertEqual(model.values('category'), [])
+        self.assertEqual(model.values('category'), ['basic'])
+        self.assertEqual(len(model.lines), 6)
+        self.assertEqual(len(model.exercises), 12)
+        e = model.exercises[5]
+        self.assertEqual(e.question, u'une scène')
+        self.assertEqual(e.answer, u'сцена')
+
+    def test_stat(self):
+        model = load('test2.lang')
+        s = Stat(model)
+        self.assertEqual(s.exercises, 12)
+        self.assertEqual(s.words, 17)
+        self.assertEqual(s.fwords, 16)
+        self.assertEqual(s.swords, 7)
 
          
 if __name__=='__main__':

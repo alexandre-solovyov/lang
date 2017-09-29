@@ -11,7 +11,7 @@ class EG_Trans(object):
     def mark():
         return '='
       
-    def generate(self, line):
+    def generate(self, line, lang1, lang2):
         ex = []
         line = simplify_spaces(line)
         parts = line.split(self.mark())
@@ -20,6 +20,6 @@ class EG_Trans(object):
             question = question.replace(EG_One.mark(), '')
             answer = parts[1].strip()
             answer = answer.replace(EG_One.mark(), '')
-            ex.append(Exercise(question, answer))
-            ex.append(Exercise(answer, question))
+            ex.append(Exercise(question, answer, lang1, lang2))
+            ex.append(Exercise(answer, question, lang2, lang1))
         return ex

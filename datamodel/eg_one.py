@@ -18,7 +18,7 @@ class EG_One(object):
         #print 'parts =', parts
         return parts
 
-    def generate(self, line):
+    def generate(self, line, lang1, lang2):
         ex = []
         parts = self.get_words(line)
         for i in xrange(0, len(parts)):
@@ -28,6 +28,6 @@ class EG_One(object):
                 question = question + ''.join(parts[i+1:])
                 question = question.replace(self.mark(), '')
                 answer = parts[i][1:]
-                ex.append(Exercise(question, answer))
+                ex.append(Exercise(question, answer, lang1, lang1))
                 
         return ex
