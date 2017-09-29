@@ -27,6 +27,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.lines[2].text, u'parler = говорить')
         self.assertEqual(model.lines[2].context,
                          {'category':'verbs', 'date':'June, 29', 'lang':'fr, ru'})
+        self.assertEqual(model.language(), ['fr', 'ru'])
     
     def test_load_unexisting_file(self):
         model = Model()

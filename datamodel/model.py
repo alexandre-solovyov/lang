@@ -5,6 +5,8 @@ import os
 from tools import simplify_spaces
 
 ENCODING = 'UTF-8'
+LANGUAGE = 'lang'
+SEP = ", "
 
 class Line(object):
     def __init__(self, text, context):
@@ -15,6 +17,10 @@ class Model(object):
     def __init__(self):
         self.lines = []
         self.context = {}
+        self._language = []
+        
+    def language(self):
+        return self._language
         
     def load(self, filename):
         if not os.path.isfile(filename):
@@ -74,6 +80,7 @@ class Model(object):
                 p1 = parts[0].strip()
                 p2 = parts[1].strip()
                 self.context[p1] = p2
+                self.onContextChanged()
         
         text = line[:index]
         line = Line(text, self.context)
@@ -120,5 +127,10 @@ class Model(object):
                   cur_context[key] = value
         new_line = Line(text, cur_context)
         self.lines.append(new_line)
+        self.context = cur_context
+        self.onContextChanged()
         return True
 
+    def onContextChanged(self):
+        if LANGUAGE in self.context:
+            self._language = self.context[LANGUAGE].split(SEP)
