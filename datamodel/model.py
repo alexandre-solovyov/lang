@@ -1,4 +1,6 @@
 
+# -*- coding: utf-8 -*-
+
 import codecs
 import copy
 import os
@@ -14,6 +16,12 @@ class Line(object):
     def __init__(self, text, context):
         self.text = text
         self.context = copy.deepcopy(context)
+        
+    def __repr__(self):
+        return self.text
+
+    def __unicode__(self):
+        return self.text
 
 class Model(object):
     def __init__(self):

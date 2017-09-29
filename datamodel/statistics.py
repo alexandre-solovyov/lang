@@ -6,15 +6,29 @@ import re
 class Stat(object):
     def __init__(self, model):
         self.pattern = re.compile('\W+', re.UNICODE)
+        self.lines  = len(model.lines)            
         self.exercises = len(model.exercises)
+        self.language = model.language()
+        
         lang = None
-        if len(model.language()) > 0:
-            lang = model.language()[0]
-            
+        if len(self.language) > 0:
+            lang = self.language[0]
+
         self.words  = self.count(model, '', 0)
         self.fwords = self.count(model, lang, 0)
         self.swords = self.count(model, lang, 2)
 
+    def __repr__(self):
+        s = ''
+        if len(self.language)==2:
+            s = s + ( "  Language:      %s <=> %s\n" % ( self.language[0], self.language[1] ) )
+        s = s + ( "  Lines:         %i\n" % self.lines )
+        s = s + ( "  Exercises:     %i\n" % self.exercises )
+        s = s + ( "  All words:     %i\n" % self.words )
+        s = s + ( "  Foreign words: %i\n" % self.fwords )
+        s = s + ( "  Studied words: %i\n" % self.swords )
+        return s
+               
     @staticmethod
     def lang_comp(lang1, lang2):
         return lang1=='' or lang1==lang2
