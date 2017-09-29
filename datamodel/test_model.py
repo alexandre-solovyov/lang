@@ -20,13 +20,13 @@ class TestModel(unittest.TestCase):
         self.assertEqual(len(model.lines), 3)
         self.assertEqual(model.lines[0].text, u'un modèle = модель')
         self.assertEqual(model.lines[0].context,
-                         {'category':'basic', 'date':'June, 29'})
+                         {'category':'basic', 'date':'June, 29', 'lang':'fr, ru'})
         self.assertEqual(model.lines[1].text, u'un problème = проблема')
         self.assertEqual(model.lines[1].context,
-                         {'category':'basic', 'date':'June, 29'})
+                         {'category':'basic', 'date':'June, 29', 'lang':'fr, ru'})
         self.assertEqual(model.lines[2].text, u'parler = говорить')
         self.assertEqual(model.lines[2].context,
-                         {'category':'verbs', 'date':'June, 29'})
+                         {'category':'verbs', 'date':'June, 29', 'lang':'fr, ru'})
     
     def test_load_unexisting_file(self):
         model = Model()
@@ -40,6 +40,7 @@ class TestModel(unittest.TestCase):
         mfile = codecs.open(path, 'rb', 'utf-8')
         file_contents = mfile.read()
         self.assertEqual(file_contents, u"""
+//! lang: fr, ru
 //! date: June, 29
 //! category: basic
 un modèle = модель
