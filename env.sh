@@ -1,3 +1,3 @@
 #!/bin/bash
 
-export PYTHONPATH=.\lang:${PYTHONPATH}
+export PYTHONPATH=${PWD}/datamodel:${PWD}/services:${PYTHONPATH}
