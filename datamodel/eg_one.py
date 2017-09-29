@@ -1,10 +1,12 @@
 
 from exercise import Exercise
 from tools import simplify_spaces
+from eg_base import EG_Base
 import re
 
-class EG_One(object):
+class EG_One(EG_Base):
     def __init__(self):
+        super(EG_One, self).__init__()
         self.pattern = re.compile('(\*?\w+|\*)', re.UNICODE)
 
     @staticmethod
@@ -18,7 +20,8 @@ class EG_One(object):
         #print 'parts =', parts
         return parts
 
-    def generate(self, line, lang1, lang2):
+    def generate(self, line, lang1, lang2, category):
+        line = self.set_tag(line)
         ex = []
         parts = self.get_words(line)
         for i in xrange(0, len(parts)):
@@ -28,6 +31,6 @@ class EG_One(object):
                 question = question + ''.join(parts[i+1:])
                 question = question.replace(self.mark(), '')
                 answer = parts[i][1:]
-                ex.append(Exercise(question, answer, lang1, lang1))
+                ex.append(Exercise(question, answer, lang1, lang1, category, self.tag))
                 
         return ex

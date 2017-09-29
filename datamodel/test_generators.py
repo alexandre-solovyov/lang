@@ -15,7 +15,7 @@ class TestGenerators(unittest.TestCase):
         
     def gen(self, line):
         g = self.generators[self.mode-1]
-        ex = g.generate(line, 'fr', 'ru')
+        ex = g.generate(line, 'fr', 'ru', '')
         exs = [unicode(e) for e in ex]
         return exs
         
@@ -58,6 +58,12 @@ class TestGenerators(unittest.TestCase):
         self.assertEqual(self.gen(u'prévenir = предупредить'),
                          [u'prévenir (предупредить) [fr, ru]',
                           u'предупредить (prévenir) [ru, fr]'])
+
+    def test_tags(self):
+        self.mode = 2
+        self.assertEqual(self.gen(u"[просьба] s'il vous plaît = пожалуйста"),
+                         [u"s'il vous plaît (пожалуйста) [fr, ru] #просьба",
+                          u"пожалуйста (s'il vous plaît) [ru, fr] #просьба"])
 
 if __name__=='__main__':
     unittest.main()

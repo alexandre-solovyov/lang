@@ -11,6 +11,7 @@ from eg_trans import EG_Trans
 ENCODING = 'UTF-8'
 LANGUAGE = 'lang'
 SEP = ", "
+CATEGORY = "category"
 
 class Line(object):
     def __init__(self, text, context):
@@ -127,7 +128,7 @@ class Model(object):
         
         for line in self.lines:
             for g in self.generators:
-                ex = g.generate(line.text, lang1, lang2)
+                ex = g.generate(line.text, lang1, lang2, line.context[CATEGORY])
                 for e in ex:
                     self.exercises.append(e)
 
