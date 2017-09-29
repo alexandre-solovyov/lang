@@ -1,5 +1,6 @@
 
 class Exercise(object):
+
     def __init__(self, etype, question, answer, lang1, lang2, category, tag):
         self.etype = etype
         self.question = question.strip()
@@ -10,10 +11,11 @@ class Exercise(object):
         self.tag = tag
 
     def __repr__(self):
-        r = "%s (%s) [%s, %s]" % ( self.question, self.answer, self.lang1, self.lang2 )
-        if len(self.tag)>0:
+        r = "%s (%s) [%s, %s]" % (
+            self.question, self.answer, self.lang1, self.lang2)
+        if len(self.tag) > 0:
             r = r + ' #' + self.tag
-        if len(self.etype)>0:
+        if len(self.etype) > 0:
             r = self.etype + ' ' + r
         return r
 
@@ -23,4 +25,3 @@ class Exercise(object):
     @staticmethod
     def placeholder():
         return '...'
-

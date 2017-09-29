@@ -7,18 +7,20 @@ import codecs
 from eg_one import EG_One
 from eg_trans import EG_Trans
 
+
 class TestGenerators(unittest.TestCase):
+
     def __init__(self, arg):
         super(TestGenerators, self).__init__(arg)
         self.generators = [EG_One(), EG_Trans()]
         self.mode = 0
-        
+
     def gen(self, line):
-        g = self.generators[self.mode-1]
+        g = self.generators[self.mode - 1]
         ex = g.generate(line, 'fr', 'ru', '')
         exs = [unicode(e) for e in ex]
         return exs
-        
+
     def test_eg_one(self):
         self.mode = 1
         self.assertEqual(self.gen(''),
@@ -75,5 +77,5 @@ class TestGenerators(unittest.TestCase):
                          [u"!= clair (foncé) [fr, fr]",
                           u"!= foncé (clair) [fr, fr]"])
 
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.main()
