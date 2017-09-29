@@ -1,8 +1,6 @@
 
 from datamodel.model import Model
 
-CATEGORY = "category"
-
 class StdModel(Model):
     def __init__(self):
         super(StdModel, self)

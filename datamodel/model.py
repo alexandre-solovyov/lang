@@ -1,19 +1,39 @@
 
+# -*- coding: utf-8 -*-
+
 import codecs
 import copy
 import os
+from tools import simplify_spaces
+from eg_one import EG_One
+from eg_trans import EG_Trans
 
 ENCODING = 'UTF-8'
+LANGUAGE = 'lang'
+SEP = ", "
+CATEGORY = "category"
 
 class Line(object):
     def __init__(self, text, context):
         self.text = text
         self.context = copy.deepcopy(context)
+        
+    def __repr__(self):
+        return self.text
+
+    def __unicode__(self):
+        return self.text
 
 class Model(object):
     def __init__(self):
         self.lines = []
         self.context = {}
+        self._language = []
+        self.exercises = []
+        self.generators = [EG_One(), EG_Trans()]
+        
+    def language(self):
+        return self._language
         
     def load(self, filename):
         if not os.path.isfile(filename):
@@ -26,6 +46,7 @@ class Model(object):
             line = self.simplify(line)
             if len(line.text) > 0:
                 self.lines.append(line)
+        self.update_exercises()
         return True
         
     def diff_context(self, old_context, new_context):
@@ -49,11 +70,8 @@ class Model(object):
             mfile.write(line.text+'\n')
         mfile.close()
 
-    def simplify_spaces(self, line):
-        return ' '.join(line.split())
-
     def simplify(self, line):
-        line = self.simplify_spaces(line)
+        line = simplify_spaces(line)
         line = self.comment(line)
         return line
     
@@ -76,6 +94,7 @@ class Model(object):
                 p1 = parts[0].strip()
                 p2 = parts[1].strip()
                 self.context[p1] = p2
+                self.onContextChanged()
         
         text = line[:index]
         line = Line(text, self.context)
@@ -98,15 +117,27 @@ class Model(object):
         return values_lst
 
     def update_exercises(self):
-        # TODO
-        pass
+        self.exercises = []
+        
+        lang1 = ''
+        lang2 = ''
+        if len(self._language)>0:
+          lang1 = self._language[0]
+        if len(self._language)>1:
+          lang2 = self._language[1]
+        
+        for line in self.lines:
+            for g in self.generators:
+                ex = g.generate(line.text, lang1, lang2, line.context[CATEGORY])
+                for e in ex:
+                    self.exercises.append(e)
 
     def choose_exercise(self):
         # TODO
         pass
 
     def add(self, text, context=None):
-        text = self.simplify_spaces(text)
+        text = simplify_spaces(text)
         if len(text)==0:
             return False
 
@@ -122,5 +153,10 @@ class Model(object):
                   cur_context[key] = value
         new_line = Line(text, cur_context)
         self.lines.append(new_line)
+        self.context = cur_context
+        self.onContextChanged()
         return True
 
+    def onContextChanged(self):
+        if LANGUAGE in self.context:
+            self._language = self.context[LANGUAGE].split(SEP)
