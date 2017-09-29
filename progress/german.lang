@@ -1,0 +1,53 @@
+﻿
+//! lang: de, ru
+//! date: Sep, 9
+//! category: basic
+
+ja = да
+jawohl = да, конечно
+nein = нет
+
+was = что
+wer = кто
+wie = как
+wieviel = сколько
+
+ich = я
+du = ты
+er = он
+sie = она, они
+wir = мы
+Sie = Вы
+
+der Tag = день
+die Tage = дни
+Guten Tag = добрый день
+auf Wiedersehen = до свидания
+der Morgen = утро
+die Nacht = ночь
+der Abend = вечер
+
+
+//! date: Sep, 10
+//! category: verbs
+
+sein = быть
+essen = есть
+trinken = пить
+gehen = ходить
+haben = иметь
+arbeiten = работать
+fahren = ехать
+geben = давать
+helfen = помогать
+kaufen = покупать
+können = мочь
+lernen = учиться
+lesen = читать
+lieben = любить
+machen = делать
+reden = разговаривать
+schlafen = спать
+suchen = искать
+waschen = мыть
+warten = ждать
