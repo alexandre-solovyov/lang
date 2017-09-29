@@ -5,19 +5,22 @@ import unittest
 import os
 import codecs
 from eg_one import EG_One
+from eg_trans import EG_Trans
 
 class TestGenerators(unittest.TestCase):
     def __init__(self, arg):
         super(TestGenerators, self).__init__(arg)
-        self.g = EG_One()
+        self.generators = [EG_One(), EG_Trans()]
+        self.mode = 0
         
     def gen(self, line):
-        ex = self.g.generate(line)
+        g = self.generators[self.mode-1]
+        ex = g.generate(line)
         exs = [unicode(e) for e in ex]
         return exs
         
     def test_eg_one(self):
-        
+        self.mode = 1
         self.assertEqual(self.gen(''),
                          [])
         self.assertEqual(self.gen('couper'),
@@ -42,6 +45,19 @@ class TestGenerators(unittest.TestCase):
                          [u"c'est ... éternel mécontent (un)"])
         self.assertEqual(self.gen(u"c'est un *éternel mécontent"),
                          [u"c'est un ... mécontent (éternel)"])
+        self.assertEqual(self.gen('aller *en Italie'),
+                         ['aller ... Italie (en)'])
+        self.assertEqual(self.gen('aller *au Japon'),
+                         ['aller ... Japon (au)'])
+
+    def test_eg_trans(self):
+        self.mode = 2
+        self.assertEqual(self.gen(u'*une scène = сцена'),
+                         [u'une scène (сцена)',
+                          u'сцена (une scène)'])
+        self.assertEqual(self.gen(u'prévenir = предупредить'),
+                         [u'prévenir (предупредить)',
+                          u'предупредить (prévenir)'])
 
 if __name__=='__main__':
     unittest.main()

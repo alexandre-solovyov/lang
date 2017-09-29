@@ -9,3 +9,7 @@ class Exercise(object):
 
     def __unicode__(self):
         return self.__repr__()
+
+    @staticmethod
+    def placeholder():
+        return '...'
