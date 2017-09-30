@@ -5,6 +5,7 @@ class EG_Base(object):
         self.tag = ''
 
     def set_tag(self, line):
+	self.tag = ''
         p1 = line.find('[')
         p2 = line.find(']')
         if p1 >= 0 and p2 > p1:

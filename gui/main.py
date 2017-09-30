@@ -10,7 +10,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
         self.model = Model()
         self.model.load('test_asl')   #TODO: not necessary for final version
-        
+
         frame = QFrame(self)
         self.setCentralWidget(frame)
         layout = QGridLayout(frame)
