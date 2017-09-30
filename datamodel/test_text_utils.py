@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from normalize import normalize
+from unicode_tools import normalize
 
 
 class TestTextUtils(unittest.TestCase):
