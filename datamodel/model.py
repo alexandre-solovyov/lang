@@ -4,7 +4,7 @@
 import codecs
 import copy
 import os
-from tools import simplify_spaces
+from unicode_tools import simplify_spaces
 from eg_one import EG_One
 from eg_trans import EG_Trans
 

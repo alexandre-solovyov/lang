@@ -20,7 +20,7 @@ class TestTextUtils(unittest.TestCase):
         self.assertEqual(normalize(u"a` Lyon"),  u"à Lyon")
 
     def test_answer_compare(self):
-        #TODO
+        # TODO
         pass
 
 if __name__ == '__main__':

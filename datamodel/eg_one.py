@@ -1,6 +1,6 @@
 
 from exercise import Exercise
-from tools import simplify_spaces
+from unicode_tools import simplify_spaces
 from eg_base import EG_Base
 import re
 
