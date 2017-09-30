@@ -55,3 +55,29 @@ def normalize(text):
     for k, v in ND.iteritems():
         text = text.replace(k, v)
     return text
+
+def ext_concat_s(s1, s2):
+    r = s1 + s2
+    p = r.find('~')
+    if p>=0:
+        r = r[:p-1] + r[p+1:]
+    return r
+
+def ext_concat2(arg1, arg2):
+    if isinstance(arg1, list) and isinstance(arg2, str):
+        res = [ext_concat_s(a, arg2) for a in arg1]
+    elif isinstance(arg1, str) and isinstance(arg2, list):
+        res = [ext_concat_s(arg1, a) for a in arg2]
+    elif isinstance(arg1, str) and isinstance(arg2, str):
+        res = ext_concat_s(arg1, arg2)
+    else:
+        res = None
+    return res
+
+def ext_concat(*kwargs):
+    if len(kwargs)==0:
+        return None
+    res = kwargs[0]
+    for i in xrange(1, len(kwargs)):
+        res = ext_concat2(res, kwargs[i])
+    return res

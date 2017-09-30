@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from unicode_tools import normalize
+from unicode_tools import normalize, ext_concat
 
 
 class TestTextUtils(unittest.TestCase):
@@ -22,6 +22,17 @@ class TestTextUtils(unittest.TestCase):
     def test_answer_compare(self):
         # TODO
         pass
+
+    def test_ext_concat(self):
+        self.assertEqual(ext_concat('a', 'b'), 'ab')
+        self.assertEqual(ext_concat(['je', 'il'], ' parle'),
+                         ['je parle', 'il parle'])
+        self.assertEqual(ext_concat('parl', ['e', 'es', 'ons']),
+                         ['parle', 'parles', 'parlons'])
+        p1 = ['e', 'es', 'e', 'ons', 'ez', 'ent']
+        self.assertEqual(ext_concat('parler', '~~', p1),
+                         ['parle', 'parles', 'parle', 'parlons',
+                          'parlez', 'parlent'])
 
 if __name__ == '__main__':
     unittest.main()
