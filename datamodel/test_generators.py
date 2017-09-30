@@ -77,5 +77,9 @@ class TestGenerators(unittest.TestCase):
                          [u"!= clair (foncé) [fr, fr]",
                           u"!= foncé (clair) [fr, fr]"])
 
+    def test_transform(self):
+        self.assertEqual(self.gen(u"[Fem] chat >> chatte"),
+                         [u">> chat (chatte) [fr, fr] #Fem"])
+
 if __name__ == '__main__':
     unittest.main()

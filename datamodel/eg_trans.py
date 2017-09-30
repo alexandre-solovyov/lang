@@ -12,7 +12,7 @@ class EG_Trans(EG_Base):
 
     @staticmethod
     def marks():
-        return ['~', '!=', '=']
+        return ['~', '!=', '=', '>>']
 
     def generate(self, line, lang1, lang2, category):
         line = self.set_tag(line)
@@ -36,9 +36,10 @@ class EG_Trans(EG_Base):
                 ex.append(
                     Exercise(etype, question, answer, lang1, lang2,
                              category, self.tag))
-                ex.append(
-                    Exercise(etype, answer, question, lang2, lang1,
-                             category, self.tag))
-
+                if mark != '>>':
+					ex.append(
+						Exercise(etype, answer, question, lang2, lang1,
+								 category, self.tag))
                 break
+
         return ex
