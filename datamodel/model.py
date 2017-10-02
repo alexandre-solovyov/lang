@@ -4,14 +4,17 @@
 import codecs
 import copy
 import os
+import glob
 from unicode_tools import simplify_spaces
 from eg_one import EG_One
 from eg_trans import EG_Trans
 
-ENCODING = 'UTF-8'
+ENCODING = 'utf-8'
+DATA_FILES = '*.lang'
 LANGUAGE = 'lang'
-SEP = ", "
-CATEGORY = "category"
+SEP = ', '
+CATEGORY = 'category'
+IGNORE_FILE = 'ignore'
 
 
 class Line(object):
@@ -43,7 +46,7 @@ class Model(object):
         if not os.path.isfile(filename):
             return False
         self.filename = filename
-        mfile = codecs.open(filename, 'rb', 'utf-8')
+        mfile = codecs.open(filename, 'rb', ENCODING)
         lines = mfile.readlines()
         mfile.close()
         for line in lines:
@@ -52,6 +55,23 @@ class Model(object):
                 self.lines.append(line)
         self.update_exercises()
         return True
+
+    def load_dir(self, dir_path):
+        ok = True
+        mask = os.path.join(dir_path, DATA_FILES)
+        files = glob.glob(mask)
+        for f in files:
+            lok = self.load(f)
+            ok = ok and lok
+        
+        fignore = os.path.join(dir_path, IGNORE_FILE)
+        if os.path.isfile(fignore):
+            mfile = codecs.open(fignore, 'rb', ENCODING)
+            self.ignore = [l.strip() for l in mfile.readlines()]
+            #print self.ignore
+            mfile.close()
+
+        return ok
 
     def diff_context(self, old_context, new_context):
         diff = {}
@@ -62,7 +82,7 @@ class Model(object):
 
     def save(self, filename):
         self.filename = filename
-        mfile = codecs.open(filename, 'wb', 'utf-8')
+        mfile = codecs.open(filename, 'wb', ENCODING)
         old_context = {}
         for line in self.lines:
             diff = self.diff_context(old_context, line.context)

@@ -1,6 +1,5 @@
 
 //! lang: de, ru
-//! date: Sep, 9
 //! category: basic
 
 ja = да
@@ -27,7 +26,6 @@ der Morgen = утро
 die Nacht = ночь
 der Abend = вечер
 
-//! date: Sep, 10
 //! category: verbs
 
 sein = быть

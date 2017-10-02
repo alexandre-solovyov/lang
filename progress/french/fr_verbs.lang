@@ -1,44 +1,7 @@
 
 //! lang: fr, ru
-//! date: Sep, 29
-//! category: basic
-
-oui = да
-non = нет
-
-merci = спасибо
-[просьба] s'il vous plaît = пожалуйста
-[благодарность] je vous en prie = пожалуйста
-
-bonjour = добрый день
-salut = привет
-à bientôt! = до скорого
-
-
-//! category: colors
-
-blanc = белый
-beige = бежевый
-bleu clair = голубой
-jaune = желтый
-vert = зеленый
-gris = серый
-bleu = синий
-bleu foncé = темно-синий
-noir = черный
-
-
-//! category: time
-
-tout à l'heure = только что
-
-
-//! category: synonyms
-accessible ~ disponible
-
-
-
 //! category: verbs
+
 accepter = принять
 accepter * une invitation
 accepter *de faire
