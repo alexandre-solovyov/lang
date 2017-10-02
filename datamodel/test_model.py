@@ -95,8 +95,9 @@ parler = говорить
         model = load('test2.lang')
         self.assertEqual(model.values('category'), ['basic'])
         self.assertEqual(len(model.lines), 6)
-        self.assertEqual(len(model.exercises), 12)
-        e = model.exercises[5]
+        self.assertEqual(len(model.exercises), 1)
+        self.assertEqual(len(model.exercises['basic']), 12)
+        e = model.exercises['basic'][5]
         self.assertEqual(e.question, u'une scène')
         self.assertEqual(e.answer, u'сцена')
 
@@ -105,7 +106,7 @@ parler = говорить
         s = Stat(model)
         self.assertEqual(s.exercises, 12)
         self.assertEqual(s.words, 17)
-        self.assertEqual(s.fwords, 16)
+        self.assertEqual(s.fwords, 14)
         self.assertEqual(s.swords, 7)
 
 

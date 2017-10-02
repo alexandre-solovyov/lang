@@ -9,7 +9,12 @@ class Stat(object):
     def __init__(self, model, verbose=False):
         self.pattern = re.compile('\W+', re.UNICODE)
         self.lines = len(model.lines)
-        self.exercises = len(model.exercises)
+        self.exercises = 0
+        self.categories = {}
+        for c, elist in model.exercises.iteritems():
+            self.categories[c] = len(elist)
+            self.exercises = self.exercises + len(elist)
+        
         self.language = model.language()
         self.verbose = verbose
         self.model = model
@@ -29,6 +34,10 @@ class Stat(object):
                      (self.language[0], self.language[1]))
         s = s + ("  Lines:         %i\n" % self.lines)
         s = s + ("  Exercises:     %i\n" % self.exercises)
+        s = s + ("  Categories:")
+        for c, cnt in self.categories.iteritems():
+            s = s + " %s (%i)" % ( c, cnt )
+        s = s + "\n"
         s = s + ("  All words:     %i\n" % self.words)
         s = s + ("  Foreign words: %i\n" % self.fwords)
         s = s + ("  Studied words: %i\n" % self.swords)
@@ -40,13 +49,14 @@ class Stat(object):
 
     def count(self, lang, mode, mode_name):
         words = {}
-        for e in self.model.exercises:
-            if mode == 0 or mode == 1:
-                if self.lang_comp(lang, e.lang1):
-                    self.add(e.question, words)
-            if mode == 0 or mode == 2:
-                if self.lang_comp(lang, e.lang2):
-                    self.add(e.answer, words)
+        for c, elist in self.model.exercises.iteritems():
+            for e in elist:
+                if mode == 0 or mode == 1:
+                    if self.lang_comp(lang, e.lang1):
+                        self.add(e.question, words)
+                if mode == 0 or mode == 2:
+                    if self.lang_comp(lang, e.lang2):
+                        self.add(e.answer, words)
                     
         if self.verbose and len(mode_name)>0:
             print 

@@ -36,8 +36,9 @@ class Model(object):
         self.lines = []
         self.context = {}
         self._language = []
-        self.exercises = []
+        self.exercises = {}
         self.generators = [EG_One(), EG_Trans()]
+        self.ignore = []
 
     def language(self):
         return self._language
@@ -141,7 +142,7 @@ class Model(object):
         return values_lst
 
     def update_exercises(self):
-        self.exercises = []
+        self.exercises = {}
 
         lang1 = ''
         lang2 = ''
@@ -152,10 +153,14 @@ class Model(object):
 
         for line in self.lines:
             for g in self.generators:
+                cat = line.context[CATEGORY]
+                if cat not in self.exercises:
+                    self.exercises[cat] = []
+                    
                 ex = g.generate(
-                    line.text, lang1, lang2, line.context[CATEGORY])
+                    line.text, lang1, lang2, cat)
                 for e in ex:
-                    self.exercises.append(e)
+                    self.exercises[cat].append(e)
 
     def add(self, text, context=None):
         text = simplify_spaces(text)
