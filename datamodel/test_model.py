@@ -105,9 +105,9 @@ parler = говорить
         model = load('test2.lang')
         s = Stat(model)
         self.assertEqual(s.exercises, 12)
-        self.assertEqual(s.words, 17)
-        self.assertEqual(s.fwords, 14)
-        self.assertEqual(s.swords, 7)
+        self.assertEqual(len(s.words), 17)
+        self.assertEqual(len(s.fwords), 14)
+        self.assertEqual(len(s.swords), 7)
 
 
 if __name__ == '__main__':
