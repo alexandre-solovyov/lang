@@ -68,7 +68,7 @@ class Model(object):
         fignore = os.path.join(dir_path, IGNORE_FILE)
         if os.path.isfile(fignore):
             mfile = codecs.open(fignore, 'rb', ENCODING)
-            self.ignore = [l.strip() for l in mfile.readlines()]
+            self.ignore = [l.strip().lower() for l in mfile.readlines()]
             #print self.ignore
             mfile.close()
 

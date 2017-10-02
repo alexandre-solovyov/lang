@@ -23,9 +23,9 @@ class Stat(object):
         if len(self.language) > 0:
             lang = self.language[0]
 
-        self.words  = self.count('', 0, '')
-        self.fwords = self.count(lang, 0, 'Foreign')
-        self.swords = self.count(lang, 2, 'Studied')
+        self.words  = self.find('', 0, '')
+        self.fwords = self.find(lang, 0, 'Foreign')
+        self.swords = self.find(lang, 2, 'Studied')
 
     def __repr__(self):
         s = ''
@@ -38,16 +38,16 @@ class Stat(object):
         for c, cnt in self.categories.iteritems():
             s = s + " %s (%i)" % ( c, cnt )
         s = s + "\n"
-        s = s + ("  All words:     %i\n" % self.words)
-        s = s + ("  Foreign words: %i\n" % self.fwords)
-        s = s + ("  Studied words: %i\n" % self.swords)
+        s = s + ("  All words:     %i\n" % len(self.words))
+        s = s + ("  Foreign words: %i\n" % len(self.fwords))
+        s = s + ("  Studied words: %i\n" % len(self.swords))
         return s
 
     @staticmethod
     def lang_comp(lang1, lang2):
         return lang1 == '' or lang1 == lang2
 
-    def count(self, lang, mode, mode_name):
+    def find(self, lang, mode, mode_name):
         words = {}
         for c, elist in self.model.exercises.iteritems():
             for e in elist:
@@ -67,9 +67,11 @@ class Stat(object):
                 print w,
             print
             
-        return len(words)
+        _words = words.keys()
+        _words.sort()
+        return _words
 
-    def add(self, text, words):
+    def add(self, text, words, only_new=False):
         p = text.find('=')
         if p>=0:
             text = text[:p]
@@ -77,5 +79,17 @@ class Stat(object):
         
         for w in ww:
             w = w.lower()
-            if len(w) > 0 and w not in self.model.ignore:
-                words[w] = True
+            if len(w)==0:
+                continue
+            if w in self.model.ignore:
+                continue
+            if w.isdigit() or w.replace('e', '').isdigit():
+                continue
+            if only_new and w in self.fwords:
+                #print 'Ignore:', w
+                continue
+                
+            if w in words:
+                words[w] = words[w]+1
+            else:
+                words[w] = 1

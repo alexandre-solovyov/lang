@@ -33,6 +33,12 @@ class TestTextUtils(unittest.TestCase):
         self.assertEqual(ext_concat('parler', '~~', p1),
                          ['parle', 'parles', 'parle', 'parlons',
                           'parlez', 'parlent'])
+                          
+    def test_replace(self):
+        s = 'ext'
+        t = s.replace('e', '')
+        self.assertEqual(s, 'ext')
+        self.assertEqual(t, 'xt')
 
 if __name__ == '__main__':
     unittest.main()
