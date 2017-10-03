@@ -34,8 +34,9 @@ print
 print 'Text analysis tool'
 
 lang = 'french'
-#text_file_name = 't0001_paris.txt'
-text_file_name = "Ensemble, c'est tout.txt"
+text_file_name = 't0001_paris.txt'
+#text_file_name = 't0002_ecole_primaire.txt'
+#text_file_name = "Ensemble, c'est tout.txt"
 model_dir = os.path.join('progress', lang)
 
 

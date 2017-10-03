@@ -24,6 +24,7 @@ aussi = также
 plus = более
 très = очень
 pour = для
+après = после
 
 //! category: colors
 
@@ -41,3 +42,10 @@ noir = черный
 //! category: time
 
 tout à l'heure = только что
+lundi = понедельник
+mardi = вторник
+mercredi = среда
+jeudi = четверг
+vendredi = пятница
+samedi = суббота
+dimanche = воскресенье
