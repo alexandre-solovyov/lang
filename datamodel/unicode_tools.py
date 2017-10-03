@@ -58,9 +58,12 @@ def normalize(text):
 
 def ext_concat_s(s1, s2):
     r = s1 + s2
-    p = r.find('~')
-    if p>=0:
-        r = r[:p-1] + r[p+1:]
+    while True:
+        p = r.find('~')
+        if p>=0:
+            r = r[:p-1] + r[p+1:]
+        else:
+            break
     return r
 
 def ext_concat2(arg1, arg2):
