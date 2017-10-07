@@ -3,7 +3,7 @@
 
 import os
 import codecs
-from unicode_utils import init
+from unicode_tools import init
 from statistics import Stat
 from model import Model, ENCODING
 

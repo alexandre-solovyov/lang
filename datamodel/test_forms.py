@@ -31,5 +31,12 @@ class TestForms(unittest.TestCase):
         self.assertEqual(self.f1.init_forms(u"parlons"), ['parler'])
         self.assertEqual(self.f2.init_forms(u"parlons"), ['parler'])
 
+    def test_not_existing(self):
+        self.assertEqual(self.f1.forms("", ""), [""])
+        self.assertEqual(self.f1.init_forms(""), [""])
+        self.assertEqual(self.f1.forms("abc", "PrInd"), ["abc"])
+        self.assertEqual(self.f1.forms("parler", "None"), ["parler"])
+        self.assertEqual(self.f1.init_forms("abc"), ["abc"])
+
 if __name__ == '__main__':
     unittest.main()

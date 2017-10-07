@@ -81,7 +81,13 @@ class Forms:
         #print self._rforms
 
     def forms(self, word, group):
-        return self._forms[group][word]
+        try:
+            return self._forms[group][word]
+        except:
+            return [word]
 
     def init_forms(self, word):
-        return self._rforms[word]
+        try:
+            return self._rforms[word]
+        except:
+            return [word]
