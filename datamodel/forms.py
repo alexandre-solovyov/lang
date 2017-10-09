@@ -64,7 +64,7 @@ class Forms:
 
     def __init__(self, isComplete):
         self.isComplete = isComplete
-        self.context = {'w': Word('~'), 'Tense': Tense}
+        self.context = {'w': Word('~'), 'Tense': Tense, 'z': Word('')}
 
     def load(self, filename):
         global IS_COMPLETE
@@ -79,6 +79,7 @@ class Forms:
         #print self._forms
         #print self._forms['PrInd']
         #print self._rforms
+        return True
 
     def forms(self, word, group):
         try:

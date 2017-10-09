@@ -71,7 +71,7 @@ class Stat(object):
         _words.sort()
         return _words
 
-    def add(self, text, words, only_new=False):
+    def add(self, text, words, only_new=False, forms=None):
         p = text.find('=')
         if p>=0:
             text = text[:p]
@@ -79,17 +79,23 @@ class Stat(object):
         
         for w in ww:
             w = w.lower()
-            if len(w)==0:
-                continue
-            if w in self.model.ignore:
-                continue
-            if w.isdigit() or w.replace('e', '').isdigit():
-                continue
-            if only_new and w in self.fwords:
-                #print 'Ignore:', w
-                continue
-                
-            if w in words:
-                words[w] = words[w]+1
+            if forms is None:
+                wf = [w]
             else:
-                words[w] = 1
+                wf = forms.init_forms(w)
+            
+            for w in wf:
+                if len(w)==0:
+                    continue
+                if w in self.model.ignore:
+                    continue
+                if w.isdigit() or w.replace('e', '').isdigit():
+                    continue
+                if only_new and w in self.fwords:
+                    #print 'Ignore:', w
+                    continue
+                
+                if w in words:
+                    words[w] = words[w]+1
+                else:
+                    words[w] = 1

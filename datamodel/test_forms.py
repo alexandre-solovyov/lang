@@ -37,6 +37,12 @@ class TestForms(unittest.TestCase):
         self.assertEqual(self.f1.forms("abc", "PrInd"), ["abc"])
         self.assertEqual(self.f1.forms("parler", "None"), ["parler"])
         self.assertEqual(self.f1.init_forms("abc"), ["abc"])
-
+    
+    def test_pluriel(self):
+        self.assertEqual(self.f1.forms("grand", "Pluriel"), ["grands"])
+        self.assertEqual(self.f1.init_forms("grands"), ["grand"])
+        self.assertEqual(self.f1.forms("musée", "Pluriel"), ["musées"])
+        self.assertEqual(self.f1.init_forms("musées"), ["musée"])
+        
 if __name__ == '__main__':
     unittest.main()

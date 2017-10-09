@@ -67,14 +67,12 @@ def ext_concat_s(s1, s2):
     return r
 
 def ext_concat2(arg1, arg2):
-    if isinstance(arg1, list) and isinstance(arg2, str):
+    if isinstance(arg1, list):
         res = [ext_concat_s(a, arg2) for a in arg1]
-    elif isinstance(arg1, str) and isinstance(arg2, list):
+    elif isinstance(arg2, list):
         res = [ext_concat_s(arg1, a) for a in arg2]
-    elif isinstance(arg1, str) and isinstance(arg2, str):
-        res = ext_concat_s(arg1, arg2)
     else:
-        res = None
+        res = ext_concat_s(arg1, arg2)
     return res
 
 def ext_concat(*kwargs):

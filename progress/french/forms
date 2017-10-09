@@ -1,8 +1,26 @@
 
+# -*- coding: utf-8 -*-
+
 PrInd = Tense('PrInd')
 
 PrInd_I_gr = w + w + ['e', 'es', 'e', 'ons', 'ez', 'ent'] + PrInd
-PrInd_I_gr( 'parler', 'marcher' )
+PrInd_I_gr( 'parler', 'marcher', 'compter', 'louer', 'traverser' )
+PrInd_I_gr( u'séjourner' )
 
 PrInd_II_gr = w + ['s', 's', 't', 'ssons', 'ssez', 'ssent'] + PrInd
 PrInd_II_gr( 'finir' )
+
+
+Plur = Tense('Pluriel')
+Plur1 = z + ['s'] + Plur
+Plur1('magnifique', 'million', 'arrondissement', 'quartier', 'champ', 'chambre')
+Plur1('appartement', 'populaire', 'riche', u'musée', u'île', 'parisien')
+Plur1('monument', 'touriste', u'célèbre', 'connu', 'habitant', u'situé')
+Plur1(u'hôte', u'ministère')
+
+Fem = Tense('Feminin')
+Fem1 = z + ['e'] + Fem
+Fem1(u'français')
+
+Fem2 = z + ['le'] + Fem
+Fem2('culturel')

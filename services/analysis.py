@@ -6,6 +6,7 @@ import codecs
 from unicode_tools import init
 from statistics import Stat
 from model import Model, ENCODING
+from forms import Forms
 
 def freq_cmp(a, b):
     if dwords[a]>dwords[b]:
@@ -46,6 +47,13 @@ print "Loading '%s'..." % model_dir,
 ok = model.load_dir( model_dir )
 print ok
 
+forms = Forms(True)
+forms_path = os.path.join(model_dir, 'forms')
+print "Loading forms '%s'..." % forms_path,
+ok = forms.load(forms_path)
+print ok
+
+
 text_path = os.path.join('texts', lang, text_file_name)
 stat = Stat(model)
 
@@ -59,7 +67,7 @@ tfile.close()
 
 dwords = {}
 for line in lines:
-    stat.add(line, dwords, True)
+    stat.add(line, dwords, True, forms)
 
 words = dwords.keys()
 words.sort(freq_cmp)

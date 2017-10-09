@@ -12,6 +12,7 @@ merci = спасибо
 bonjour = добрый день
 salut = привет
 à bientôt! = до скорого
+certainement = несомненно
 
 et = и
 ou = или
@@ -25,6 +26,7 @@ plus = более
 très = очень
 pour = для
 après = после
+sur = на
 
 //! category: colors
 
@@ -49,3 +51,19 @@ jeudi = четверг
 vendredi = пятница
 samedi = суббота
 dimanche = воскресенье
+
+
+//! category: pronouns
+je = я
+tu = ты
+il = он
+elle = она
+nous = мы
+vous = вы
+ils = они
+mon = мой
+ton = твой
+son = его
+notre = наш
+votre = ваш
+chaque = каждый
