@@ -2,6 +2,13 @@
 //! lang: fr, ru
 //! category: verbs
 
+[PrInd] être >> suis, es, est, sommes, êtes, sont
+[PrInd] avoir >> ai, as, a, avons, avez, ont
+[PrInd] pouvoir >> peux, peux, peut, pouvons, pouvez, peuvent
+
+
+
+
 accepter = принять
 accepter * une invitation
 accepter *de faire
@@ -27,8 +34,6 @@ parler *à qn *de qch = говорить
 
 
 
-[PrInd] être >> suis, es, est, sommes, êtes, sont
-[PrInd] pouvoir >> peux, peux, peut, pouvons, pouvez, peuvent
 marcher = ходить
 compter = считать
 louer = арендовать
