@@ -2,6 +2,11 @@
 //! lang: fr, ru
 //! category: noms
 
+[Pl] ~eau >> ~eaux
+[Pl] ~eu >> ~eux
+[Pl] ~s >> ~s
+[Pl] ~ >> ~s
+
 *un modèle = модель
 *une scène = сцена
 *un problème = проблема
@@ -25,10 +30,9 @@
 *une île = остров
 *un exemple = пример
 *un tableau = картина
-[Pl] tableau >> tableaux
 *un lieu = место
-[Pl] lieu >> lieux
 *une semaine = неделя
+*un tour = ???
 *une tour = башня
 *une chambre = комната
 *un million = миллион
@@ -57,3 +61,89 @@
 *une école = школа
 *un écolier = школьник
 *un étudiant = студент
+*une classe = класс
+*un matin = утро
+*une activité = деятельность
+*un midi = полдень
+*un mois = месяц
+
+
+
+une histoire = история
+une géographie = география
+une chose = вещь
+une science = наука
+une règle = правило
+une grammaire = грамматика
+une journée = день
+une connaissance = знание
+une conjugaison = спряжение
+une fête = праздник
+un jour = день
+une nuit = ночь
+une rue = улица
+une musique = музыка
+un arbre = дерево
+une programme = программа
+un cadeau = подарок
+un restaurant = ресторан
+un feu = огонь
+un ami = друг
+un père = отец
+un début = начало
+un concert = концерт
+un village = деревня
+une fin = конец
+un fait = факт
+un vendanges = урожай
+un travail = работа
+une famille = семья
+compétition = 
+radio = 
+télé = 
+feuille = 
+passage = 
+parent = 
+repas = 
+liste = 
+verre = 
+examen = 
+crêpe = 
+artifice = 
+cycliste = 
+une rentrée = 
+un défilé = 
+un lycéen = 
+route = 
+muguet = 
+manifestation = 
+campagne = 
+coureur = 
+vacances = 
+commande = 
+personne = 
+cartable = 
+un train = 
+une ligne = 
+époque = 
+une vitesse = 
+un nom = 
+une gare = 
+kilomètre = 
+une porte = 
+un prix = 
+une heure = час
+un espoir = надежда
+un voyageur = 
+une lumière = 
+une destination = 
+un effet = эффект
+en effet = действительно
+un homme = 
+une femme = 
+un cas = 
+une lettre = 
+une industrie = 
+un service = 
+un record =
+une chance = 

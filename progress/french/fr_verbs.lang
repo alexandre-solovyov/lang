@@ -4,39 +4,81 @@
 
 [PrInd] être >> suis, es, est, sommes, êtes, sont
 [PrInd] avoir >> ai, as, a, avons, avez, ont
+[PrInd] aller >> vais, vas, va, allons, allez, vont
+
 [PrInd] pouvoir >> peux, peux, peut, pouvons, pouvez, peuvent
+[PrInd] devoir >> dois, dois, doit, devons, devez, doivent
+[PrInd] ~voir >> ~vois, ~vois, ~voit, ~voyons, ~voyez, ~voient
 
+[PrInd] ~rendre >> ~rends, ~rends, ~rend, ~renons, ~renez, ~rennent
+[PrInd] ~tendre >> ~tends, ~tends, ~tend, ~tendons, ~tendez, ~tendent
 
+[PrInd] atteindre >> atteins, atteins, atteint, atteignons, atteignez, atteignent 
 
+[PrInd] ~frir >> ~fre, ~fres, ~fre, ~frons, ~frez, ~frent
+[PrInd] ~tir >> ~s, ~s, ~t, ~tons, ~tez, ~tent
+[PrInd] ~ir >> ~is, ~is, ~it, ~issons, ~issez, ~issent
 
-accepter = принять
-accepter * une invitation
-accepter *de faire
-aider *à qn = помочь
-aller *vers Nice
-s'amuser *à faire = развлекаться
-arriver = прибывать
-arriver *à l'âge de puberté
-arriver *de New-York
-arriver *par avion 
-assister * qn = содействовать
-assister à qch = присутствовать
-j'assiste *à la messe
-besoin *de qch = нужда
-avoir besoin *de qch = нуждаться
+[PrInd] appeler >> appelle, appelles, appelle, appelons, appelez, appellent
+[PrInd] ~oyer >> ~oie, ~oies, ~oie, ~oyons, ~oyez, ~oient
+[PrInd] ~er >> ~e, ~es, ~e, ~ons, ~ez, ~ent
 
-se battre *contre qch = бороться
-cesser *de faire = перестать
-décider *de faire = принимать решение
+[PartPre] ~er >> ~ant
+[PartPas] ~er >> ~é
 
-faire confiance *à qn = оказать доверие
-parler *à qn *de qch = говорить
-
-
-
+appeler = звать
+être = быть
+pouvoir = мочь
+avoir = иметь
+lire = читать
+écrire = писать
 marcher = ходить
 compter = считать
 louer = арендовать
 traverser = пересекать
 séjourner = пребывать
 voir = видеть
+continuer = продолжать
+étudier = изучать
+apprendre = узнать
+commencer = начинать
+terminer = прекращать
+entrer = входить
+approfondir = углублять
+appeler = называть
+préparer = подготавливать
+sauter = прыгать
+boire = пить
+passer = проходить
+jouer = играть
+offrir = предлагать
+travailler = работать
+déjeuner = обедать
+proposer = предлагать
+souhaiter = желать
+encourager = ободрять
+sortir = выходить
+attendre = ждать
+tomber = падать
+fleurir = 
+trouver = 
+retrouver =
+envoyer = 
+écouter = 
+savoir = 
+prendre = 
+regretter = 
+posséder = 
+signifier = 
+casser = 
+tromper = 
+utiliser = 
+changer = 
+réaliser = 
+rendre = 
+devoir = 
+dire = 
+acheminer = 
+stimuler = 
+atteindre = 
+aider = 

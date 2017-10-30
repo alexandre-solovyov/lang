@@ -2,7 +2,13 @@
 //! lang: fr, ru
 //! category: numbers
 
+[Ord] ~e >> ~ième
+[Ord] ~ >> ~ième
+
 un = 1
+premier = первый
+dernier = последний
+
 deux = 2
 trois = 3
 quatre = 4

@@ -2,17 +2,53 @@
 //! lang: fr, ru
 //! category: adjectives
 
-politique = политический
-économique = экономический
-magnifique = великолепный
-touristique = туристический
-grand = большой
-riche = богатый
+[FemPl] ~eau >> ~eaux, ~el, ~elles
+[FemPl] ~eux >> ~eux, ~euse, ~euses
+[FemPl] ~el >> ~els, ~elle, ~elles
+[FemPl] ~ier >> ~iers, ~ière, ~ières
+[FemPl] ~f >> ~fs, ~ve, ~ves
+[FemPl] ~g >> ~gs, ~gue, ~gues
+[FemPl] ~n >> ~ns, ~nne, ~nnes
+[FemPl] ~e >> ~es, ~e, ~es
+[FemPl] ~ >> ~s, ~e, ~es
+
+amoureux = влюбленный
+anglais = английский
+artistique = артистический
+bon = хороший
 célèbre = знаменитый
-entier = целый
-français = французский
-populaire = популярный
 connu = известный
-situé = расположенный
 culturel = культурный
+difficile = трудный
+économique = экономический
+élémentaire = элементарный
+entier = целый
+familial = семейный
+férié = нерабочий
+français = французский
+grand = большой
+important = важный 
+intéressant = интересный
+japonais = японский
+magnifique = великолепный
+militaire = военный
+moyen = средний
+nationale = национальный
+nouveau = новый
+obligatoire = обязательный
 parisien = парижский
+petit = маленький
+politique = политический
+populaire = популярный
+premier = первый
+préparatoire = подготовительный
+primaire = первичный
+riche = богатый
+situé = расположенный
+sportif = спортивный
+touristique = туристический
+poétique = поэтический
+long = длинный
+merveilleux = замечательный
+seul = единственный
+

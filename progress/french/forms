@@ -5,7 +5,7 @@ PrInd = Tense('PrInd')
 
 PrInd_I_gr = w + w + ['e', 'es', 'e', 'ons', 'ez', 'ent'] + PrInd
 PrInd_I_gr( 'parler', 'marcher', 'compter', 'louer', 'traverser' )
-PrInd_I_gr( u'séjourner' )
+PrInd_I_gr( u'séjourner', 'continuer', u'étudier' )
 
 PrInd_II_gr = w + ['s', 's', 't', 'ssons', 'ssez', 'ssent'] + PrInd
 PrInd_II_gr( 'finir' )
