@@ -12,8 +12,8 @@ class EG_One(EG_Base):
         self.pattern = re.compile('(\*?\w+|\*)', re.UNICODE)
 
     @staticmethod
-    def mark():
-        return '*'
+    def marks():
+        return ['*']
 
     def get_words(self, line):
         line = simplify_spaces(line)
@@ -27,11 +27,11 @@ class EG_One(EG_Base):
         ex = []
         parts = self.get_words(line)
         for i in xrange(0, len(parts)):
-            if len(parts[i]) > 0 and parts[i][0] == self.mark():
+            if len(parts[i]) > 0 and parts[i][0] == self.marks()[0]:
                 question = ''.join(parts[:i])
                 question = question + Exercise.placeholder()
                 question = question + ''.join(parts[i + 1:])
-                question = question.replace(self.mark(), '')
+                question = question.replace(self.marks()[0], '')
                 answer = parts[i][1:]
                 ex.append(
                     Exercise('', question, answer, lang1, lang1,

@@ -6,7 +6,7 @@ import re
 
 class Stat(object):
 
-    def __init__(self, model, verbose=False):
+    def __init__(self, model, verbose=False, forms=None):
         self.pattern = re.compile('\W+', re.UNICODE)
         self.lines = len(model.lines)
         self.exercises = 0
@@ -23,9 +23,11 @@ class Stat(object):
         if len(self.language) > 0:
             lang = self.language[0]
 
-        self.words  = self.find('', 0, '')
-        self.fwords = self.find(lang, 0, 'Foreign')
-        self.swords = self.find(lang, 2, 'Studied')
+        self.fwords = []
+
+        self.words  = self.find('', 0, '', forms)
+        self.fwords = self.find(lang, 0, 'Foreign', forms)
+        self.swords = self.find(lang, 2, 'Studied', forms)
 
     def __repr__(self):
         s = ''
@@ -47,16 +49,16 @@ class Stat(object):
     def lang_comp(lang1, lang2):
         return lang1 == '' or lang1 == lang2
 
-    def find(self, lang, mode, mode_name):
+    def find(self, lang, mode, mode_name, forms):
         words = {}
         for c, elist in self.model.exercises.iteritems():
             for e in elist:
                 if mode == 0 or mode == 1:
                     if self.lang_comp(lang, e.lang1):
-                        self.add(e.question, words)
+                        self.add(e.question, words, False, forms)
                 if mode == 0 or mode == 2:
                     if self.lang_comp(lang, e.lang2):
-                        self.add(e.answer, words)
+                        self.add(e.answer, words, False, forms)
                     
         if self.verbose and len(mode_name)>0:
             print 
@@ -83,6 +85,8 @@ class Stat(object):
                 wf = [w]
             else:
                 wf = forms.init_forms(w)
+                #if wf[0]!=w:
+                #    print w, wf
             
             for w in wf:
                 if len(w)==0:

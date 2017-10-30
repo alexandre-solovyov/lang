@@ -50,7 +50,6 @@ def init():
 def simplify_spaces(line):
     return ' '.join(line.split())
 
-
 def normalize(text):
     for k, v in ND.iteritems():
         text = text.replace(k, v)
@@ -62,6 +61,12 @@ def ext_concat_s(s1, s2):
         p = r.find('~')
         if p>=0:
             r = r[:p-1] + r[p+1:]
+        else:
+            break
+    while True:
+        p = r.find('#')
+        if p>=0:
+            r = r[:p] + r[p-1] + r[p+1:]
         else:
             break
     return r
@@ -82,3 +87,9 @@ def ext_concat(*kwargs):
     for i in xrange(1, len(kwargs)):
         res = ext_concat2(res, kwargs[i])
     return res
+
+def to_latin(text):
+    for k, v in ND.iteritems():
+        text = text.replace(v, k[0])
+    return text
+

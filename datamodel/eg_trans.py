@@ -12,7 +12,7 @@ class EG_Trans(EG_Base):
 
     @staticmethod
     def marks():
-        return ['~', '!=', '=', '>>']
+        return ['~', '!=', '=']
 
     def generate(self, line, lang1, lang2, category):
         line = self.set_tag(line)
@@ -20,12 +20,14 @@ class EG_Trans(EG_Base):
         line = simplify_spaces(line)
 
         for mark in self.marks():
+            if not self.active(mark):
+                continue
             parts = line.split(mark)
             if len(parts) == 2:
                 question = parts[0].strip()
-                question = question.replace(EG_One.mark(), '')
+                question = question.replace(EG_One.marks()[0], '')
                 answer = parts[1].strip()
-                answer = answer.replace(EG_One.mark(), '')
+                answer = answer.replace(EG_One.marks()[0], '')
 
                 etype = mark
                 if mark == '=':
@@ -43,3 +45,6 @@ class EG_Trans(EG_Base):
                 break
 
         return ex
+
+    def active(self, mark):
+        return True
