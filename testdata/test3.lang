@@ -1,0 +1,10 @@
+
+//! lang: fr, ru
+//! category: verbs
+
+[PrInd] aller >> vais, vas, va, allons, allez, vont
+[PrInd] ~er >> ~e, ~es, ~e, ~ons, ~ez, ~ent
+
+parler = говорить
+aller = идти
+

@@ -1,4 +1,4 @@
-#!/bin/bash -f
+#!/bin/bash
 
 source env.sh
-python datamodel/_all_tests_.py
+python ./datamodel/_all_tests_.py

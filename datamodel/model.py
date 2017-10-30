@@ -5,9 +5,11 @@ import codecs
 import copy
 import os
 import glob
-from unicode_tools import simplify_spaces
+from unicode_tools import simplify_spaces, to_latin
 from eg_one import EG_One
 from eg_trans import EG_Trans
+from eg_grammar import EG_Grammar
+from forms import Forms
 
 ENCODING = 'utf-8'
 DATA_FILES = '*.lang'
@@ -19,9 +21,10 @@ IGNORE_FILE = 'ignore'
 
 class Line(object):
 
-    def __init__(self, text, context):
+    def __init__(self, text, context, model):
         self.text = text
         self.context = copy.deepcopy(context)
+        self.model = model
 
     def __repr__(self):
         return self.text
@@ -29,6 +32,26 @@ class Line(object):
     def __unicode__(self):
         return self.text
 
+    def cmp_repr(self):
+        txt = self.model.short_simplify(self.text)
+        txt = to_latin(txt)
+        txt = txt.strip()
+        return repr(self.context) + ' ' + txt
+
+class Separator(object):
+    def __init__(self, filename):
+        self.filename = filename
+        self.context = {}
+        self.text = ''
+
+def line_cmp(a, b):
+    ash = a.cmp_repr()
+    bsh = b.cmp_repr()
+    #print ash, bsh
+    if ash < bsh:
+        return -1
+    else:
+        return 1
 
 class Model(object):
 
@@ -37,8 +60,10 @@ class Model(object):
         self.context = {}
         self._language = []
         self.exercises = {}
-        self.generators = [EG_One(), EG_Trans()]
+        self.generators = [EG_One(), EG_Trans(), EG_Grammar(self)]
         self.ignore = []
+        self.short_ignore = []
+        self.forms = Forms(True)
 
     def language(self):
         return self._language
@@ -46,22 +71,28 @@ class Model(object):
     def load(self, filename):
         if not os.path.isfile(filename):
             return False
-        self.filename = filename
+            
         mfile = codecs.open(filename, 'rb', ENCODING)
         lines = mfile.readlines()
         mfile.close()
+        self.lines.append(Separator(filename))
+        
         for line in lines:
             line = self.simplify(line)
             if len(line.text) > 0:
                 self.lines.append(line)
+
         self.update_exercises()
         return True
 
-    def load_dir(self, dir_path):
-        ok = True
+    def all_files(self, dir_path):
         mask = os.path.join(dir_path, DATA_FILES)
         files = glob.glob(mask)
-        for f in files:
+        return files
+        
+    def load_dir(self, dir_path):
+        ok = True
+        for f in self.all_files(dir_path):
             lok = self.load(f)
             ok = ok and lok
         
@@ -86,6 +117,9 @@ class Model(object):
         mfile = codecs.open(filename, 'wb', ENCODING)
         old_context = {}
         for line in self.lines:
+            if isinstance(line, Separator):
+                # TODO: to treat correctly the separator
+                continue
             diff = self.diff_context(old_context, line.context)
             if len(diff) > 0:
                 mfile.write('\n')
@@ -108,7 +142,7 @@ class Model(object):
             index = line.index('//')
             length = 2
         else:
-            return Line(line, self.context)
+            return Line(line, self.context, self)
 
         comment = line[index + length:]
         if len(comment) > 0 and comment[0] == '!':
@@ -122,7 +156,7 @@ class Model(object):
                 self.onContextChanged()
 
         text = line[:index]
-        line = Line(text, self.context)
+        line = Line(text, self.context, self)
         return line
 
     def value(self, line, key):
@@ -151,15 +185,23 @@ class Model(object):
         if len(self._language) > 1:
             lang2 = self._language[1]
 
+        #print len(self.lines)
         for line in self.lines:
+            if isinstance(line, Separator):
+                for g in self.generators:
+                    g.set_file(line.filename)
+                continue
+                
+            #print line.text
             for g in self.generators:
                 cat = line.context[CATEGORY]
                 if cat not in self.exercises:
                     self.exercises[cat] = []
-                    
+                
                 ex = g.generate(
                     line.text, lang1, lang2, cat)
                 for e in ex:
+                    #print e.question, e.answer
                     self.exercises[cat].append(e)
 
     def add(self, text, context=None):
@@ -177,7 +219,7 @@ class Model(object):
         if context is not None:
             for key, value in context.iteritems():
                 cur_context[key] = value
-        new_line = Line(text, cur_context)
+        new_line = Line(text, cur_context, self)
         self.lines.append(new_line)
         self.context = cur_context
         self.onContextChanged()
@@ -186,3 +228,26 @@ class Model(object):
     def onContextChanged(self):
         if LANGUAGE in self.context:
             self._language = self.context[LANGUAGE].split(SEP)
+
+    def short_simplify(self, line):
+        txt = line
+        while True:
+            p1 = txt.find('[')
+            p2 = txt.find(']')
+            if p1>=0 and p2>=0:
+                txt = txt[:p1] + txt[p2+1:]
+                #print '>>'+txt+'<<'
+            else:
+                break
+                
+        for g in self.generators:
+            for m in g.marks():
+                txt = txt.replace(m, '')
+        txt = txt.strip()
+        for i in self.short_ignore:
+            txt = txt.replace(i, '')
+        return txt
+
+    def sort(self):
+        self.lines.sort(line_cmp)
+
