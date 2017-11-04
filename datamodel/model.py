@@ -38,20 +38,24 @@ class Line(object):
         txt = txt.strip()
         return repr(self.context) + ' ' + txt
 
+
 class Separator(object):
+
     def __init__(self, filename):
         self.filename = filename
         self.context = {}
         self.text = ''
 
+
 def line_cmp(a, b):
     ash = a.cmp_repr()
     bsh = b.cmp_repr()
-    #print ash, bsh
+    # print ash, bsh
     if ash < bsh:
         return -1
     else:
         return 1
+
 
 class Model(object):
 
@@ -71,12 +75,12 @@ class Model(object):
     def load(self, filename):
         if not os.path.isfile(filename):
             return False
-            
+
         mfile = codecs.open(filename, 'rb', ENCODING)
         lines = mfile.readlines()
         mfile.close()
         self.lines.append(Separator(filename))
-        
+
         for line in lines:
             line = self.simplify(line)
             if len(line.text) > 0:
@@ -89,18 +93,18 @@ class Model(object):
         mask = os.path.join(dir_path, DATA_FILES)
         files = glob.glob(mask)
         return files
-        
+
     def load_dir(self, dir_path):
         ok = True
         for f in self.all_files(dir_path):
             lok = self.load(f)
             ok = ok and lok
-        
+
         fignore = os.path.join(dir_path, IGNORE_FILE)
         if os.path.isfile(fignore):
             mfile = codecs.open(fignore, 'rb', ENCODING)
             self.ignore = [l.strip().lower() for l in mfile.readlines()]
-            #print self.ignore
+            # print self.ignore
             mfile.close()
 
         return ok
@@ -185,23 +189,23 @@ class Model(object):
         if len(self._language) > 1:
             lang2 = self._language[1]
 
-        #print len(self.lines)
+        # print len(self.lines)
         for line in self.lines:
             if isinstance(line, Separator):
                 for g in self.generators:
                     g.set_file(line.filename)
                 continue
-                
-            #print line.text
+
+            # print line.text
             for g in self.generators:
                 cat = line.context[CATEGORY]
                 if cat not in self.exercises:
                     self.exercises[cat] = []
-                
+
                 ex = g.generate(
                     line.text, lang1, lang2, cat)
                 for e in ex:
-                    #print e.question, e.answer
+                    # print e.question, e.answer
                     self.exercises[cat].append(e)
 
     def add(self, text, context=None):
@@ -234,12 +238,12 @@ class Model(object):
         while True:
             p1 = txt.find('[')
             p2 = txt.find(']')
-            if p1>=0 and p2>=0:
-                txt = txt[:p1] + txt[p2+1:]
-                #print '>>'+txt+'<<'
+            if p1 >= 0 and p2 >= 0:
+                txt = txt[:p1] + txt[p2 + 1:]
+                # print '>>'+txt+'<<'
             else:
                 break
-                
+
         for g in self.generators:
             for m in g.marks():
                 txt = txt.replace(m, '')
@@ -250,4 +254,3 @@ class Model(object):
 
     def sort(self):
         self.lines.sort(line_cmp)
-

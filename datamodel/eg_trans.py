@@ -39,9 +39,9 @@ class EG_Trans(EG_Base):
                     Exercise(etype, question, answer, lang1, lang2,
                              category, self.tag))
                 if mark != '>>':
-					ex.append(
-						Exercise(etype, answer, question, lang2, lang1,
-								 category, self.tag))
+                    ex.append(
+                        Exercise(etype, answer, question, lang2, lang1,
+                                 category, self.tag))
                 break
 
         return ex

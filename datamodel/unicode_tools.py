@@ -50,26 +50,29 @@ def init():
 def simplify_spaces(line):
     return ' '.join(line.split())
 
+
 def normalize(text):
     for k, v in ND.iteritems():
         text = text.replace(k, v)
     return text
 
+
 def ext_concat_s(s1, s2):
     r = s1 + s2
     while True:
         p = r.find('~')
-        if p>=0:
-            r = r[:p-1] + r[p+1:]
+        if p >= 0:
+            r = r[:p - 1] + r[p + 1:]
         else:
             break
     while True:
         p = r.find('#')
-        if p>=0:
-            r = r[:p] + r[p-1] + r[p+1:]
+        if p >= 0:
+            r = r[:p] + r[p - 1] + r[p + 1:]
         else:
             break
     return r
+
 
 def ext_concat2(arg1, arg2):
     if isinstance(arg1, list):
@@ -80,16 +83,17 @@ def ext_concat2(arg1, arg2):
         res = ext_concat_s(arg1, arg2)
     return res
 
+
 def ext_concat(*kwargs):
-    if len(kwargs)==0:
+    if len(kwargs) == 0:
         return None
     res = kwargs[0]
     for i in xrange(1, len(kwargs)):
         res = ext_concat2(res, kwargs[i])
     return res
 
+
 def to_latin(text):
     for k, v in ND.iteritems():
         text = text.replace(v, k[0])
     return text
-

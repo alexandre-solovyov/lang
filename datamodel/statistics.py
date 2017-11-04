@@ -14,7 +14,7 @@ class Stat(object):
         for c, elist in model.exercises.iteritems():
             self.categories[c] = len(elist)
             self.exercises = self.exercises + len(elist)
-        
+
         self.language = model.language()
         self.verbose = verbose
         self.model = model
@@ -25,7 +25,7 @@ class Stat(object):
 
         self.fwords = []
 
-        self.words  = self.find('', 0, '', forms)
+        self.words = self.find('', 0, '', forms)
         self.fwords = self.find(lang, 0, 'Foreign', forms)
         self.swords = self.find(lang, 2, 'Studied', forms)
 
@@ -38,7 +38,7 @@ class Stat(object):
         s = s + ("  Exercises:     %i\n" % self.exercises)
         s = s + ("  Categories:")
         for c, cnt in self.categories.iteritems():
-            s = s + " %s (%i)" % ( c, cnt )
+            s = s + " %s (%i)" % (c, cnt)
         s = s + "\n"
         s = s + ("  All words:     %i\n" % len(self.words))
         s = s + ("  Foreign words: %i\n" % len(self.fwords))
@@ -59,47 +59,47 @@ class Stat(object):
                 if mode == 0 or mode == 2:
                     if self.lang_comp(lang, e.lang2):
                         self.add(e.answer, words, False, forms)
-                    
-        if self.verbose and len(mode_name)>0:
-            print 
+
+        if self.verbose and len(mode_name) > 0:
+            print
             print mode_name + ':',
             ww = words.keys()
             ww.sort()
             for w in ww:
                 print w,
             print
-            
+
         _words = words.keys()
         _words.sort()
         return _words
 
     def add(self, text, words, only_new=False, forms=None):
         p = text.find('=')
-        if p>=0:
+        if p >= 0:
             text = text[:p]
         ww = re.split(self.pattern, text)
-        
+
         for w in ww:
             w = w.lower()
             if forms is None:
                 wf = [w]
             else:
                 wf = forms.init_forms(w)
-                #if wf[0]!=w:
+                # if wf[0]!=w:
                 #    print w, wf
-            
+
             for w in wf:
-                if len(w)==0:
+                if len(w) == 0:
                     continue
                 if w in self.model.ignore:
                     continue
                 if w.isdigit() or w.replace('e', '').isdigit():
                     continue
                 if only_new and w in self.fwords:
-                    #print 'Ignore:', w
+                    # print 'Ignore:', w
                     continue
-                
+
                 if w in words:
-                    words[w] = words[w]+1
+                    words[w] = words[w] + 1
                 else:
                     words[w] = 1

@@ -1,0 +1,12 @@
+directory datamodel
+checking datamodel/__init__.py
+checking datamodel/eg_base.py
+checking datamodel/eg_grammar.py
+checking datamodel/eg_one.py
+checking datamodel/eg_trans.py
+checking datamodel/exercise.py
+checking datamodel/forms.py
+checking datamodel/grammar.py
+checking datamodel/model.py
+checking datamodel/statistics.py
+checking datamodel/unicode_tools.py

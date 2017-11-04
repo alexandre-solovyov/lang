@@ -2,11 +2,13 @@
 import re
 import model
 
+
 class Rule:
+
     def __init__(self, rule, group):
         self.group = group
         parts = rule.split('>>')
-        if len(parts)==2:
+        if len(parts) == 2:
             self.input = parts[0].strip()
             self.output = [x.strip() for x in parts[1].split(',')]
         else:
@@ -14,15 +16,15 @@ class Rule:
             self.output = []
         reg = '^' + self.input.replace('~', '(\w*)') + '$'
         self.reg = re.compile(reg, re.UNICODE)
-        
+
     def __rshift__(self, forms):
         self.output = forms
-        
+
     def match(self, word):
         m = self.reg.match(word)
         if m is None:
             return False, ''
-        elif m.lastindex==None:
+        elif m.lastindex is None:
             return True, word
         else:
             return True, m.group(m.lastindex)
@@ -40,4 +42,4 @@ class Rule:
         return ok
 
     def is_one(self):
-        return not '~' in self.input
+        return '~' not in self.input
