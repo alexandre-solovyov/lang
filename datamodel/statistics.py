@@ -1,12 +1,16 @@
 ﻿
 # -*- coding: utf-8 -*-
 
+"""Module for statistics methods"""
+
 import re
 
 
 class Stat(object):
+    """Statistics of the LANG model"""
 
     def __init__(self, model, verbose=False, forms=None):
+        """Constructor"""
         self.pattern = re.compile('\W+', re.UNICODE)
         self.lines = len(model.lines)
         self.exercises = 0
@@ -30,6 +34,7 @@ class Stat(object):
         self.swords = self.find(lang, 2, 'Studied', forms)
 
     def __repr__(self):
+        """Representation"""
         s = ''
         if len(self.language) == 2:
             s = s + ("  Language:      %s <=> %s\n" %
@@ -47,9 +52,11 @@ class Stat(object):
 
     @staticmethod
     def lang_comp(lang1, lang2):
+        """Check if two given languages are compatible"""
         return lang1 == '' or lang1 == lang2
 
     def find(self, lang, mode, mode_name, forms):
+        """Find words for given parameters"""
         words = {}
         for c, elist in self.model.exercises.iteritems():
             for e in elist:
@@ -74,6 +81,7 @@ class Stat(object):
         return _words
 
     def add(self, text, words, only_new=False, forms=None):
+        """Add words to the statistics"""
         p = text.find('=')
         if p >= 0:
             text = text[:p]

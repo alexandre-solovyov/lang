@@ -1,6 +1,9 @@
 
 # -*- coding: utf-8 -*-
 
+"""Implementation of the LANG data model"""
+
+
 import codecs
 import copy
 import os
@@ -20,19 +23,24 @@ IGNORE_FILE = 'ignore'
 
 
 class Line(object):
+    """Line information"""
 
     def __init__(self, text, context, model):
+        """Constructor"""
         self.text = text
         self.context = copy.deepcopy(context)
         self.model = model
 
     def __repr__(self):
+        """Representation"""
         return self.text
 
     def __unicode__(self):
+        """Unicode representation"""
         return self.text
 
     def cmp_repr(self):
+        """Extended representation"""
         txt = self.model.short_simplify(self.text)
         txt = to_latin(txt)
         txt = txt.strip()
@@ -40,14 +48,17 @@ class Line(object):
 
 
 class Separator(object):
+    """Separator information"""
 
     def __init__(self, filename):
+        """Constructor"""
         self.filename = filename
         self.context = {}
         self.text = ''
 
 
 def line_cmp(a, b):
+    """Compare two lines"""
     ash = a.cmp_repr()
     bsh = b.cmp_repr()
     # print ash, bsh
@@ -58,8 +69,10 @@ def line_cmp(a, b):
 
 
 class Model(object):
+    """Model implementation"""
 
     def __init__(self):
+        """Constructor"""
         self.lines = []
         self.context = {}
         self._language = []
@@ -70,9 +83,11 @@ class Model(object):
         self.forms = Forms(True)
 
     def language(self):
+        """Get language of the model"""
         return self._language
 
     def load(self, filename):
+        """Load the model from a file"""
         if not os.path.isfile(filename):
             return False
 
@@ -90,6 +105,7 @@ class Model(object):
         return True
 
     def all_files(self, dir_path):
+        """Get all data files from given folder"""
         mask = os.path.join(dir_path, DATA_FILES)
         files = glob.glob(mask)
         return files
